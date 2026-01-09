@@ -1,0 +1,28 @@
+# Build directories
+.pio/
+.vscode/
+*.pyc
+
+# PlatformIO files
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Exclude all other projects except our two main ones
+/*
+!/Experiment_car_copy/
+!/ESP_NOW_remote/
+!/README.md
+!.gitignore
