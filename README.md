@@ -8,6 +8,10 @@ This project consists of two main components:
 - **Experiment_car_copy**: The robot car controller (ESP32 DevKitC)
 - **ESP_NOW_remote**: The wireless remote control (TTGO T-Display)
 
+> 📖 **For detailed build process, issues encountered, and recommendations, see [BUILD_LOG.md](BUILD_LOG.md)**
+
+This is a derived and enhanced version of the original mecanum wheel robot car designed by [DroneBot Workshop](https://dronebotworkshop.com). Special thanks to them for the excellent tutorial!
+
 ## 🚗 Features
 
 ### Robot Car (Experiment_car_copy)

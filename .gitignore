@@ -25,4 +25,7 @@ Thumbs.db
 !/Experiment_car_copy/
 !/ESP_NOW_remote/
 !/README.md
+!/BUILD_LOG.md
+!/photos/
+!/3D_Models/
 !.gitignore
