@@ -47,16 +47,17 @@ This project consists of two main components:
 ### Robot Car
 - ESP32 DevKitC (or compatible)
 - 2x TB6612FNG Motor Driver Modules (or L298N)
-- 4x DC Motors with mecanum wheels
+- 4x DC BO Motors with mecanum wheels
 - 1x Servo motor (for flapper mechanism)
 - 8x WS2812B NeoPixel LEDs
-- 2S LiPo Battery (7.4V nominal)
+- 2S Li-ion Battery (7.4V nominal)
 - Voltage divider circuit (100kΩ + 47kΩ resistors)
+- LM2596 (for stepping down the voltage to 5V for ESP32, Neopixel, servo)
 
 ### Remote Control
 - TTGO T-Display ESP32 Module
 - Analog Joystick Module (X/Y axis + button)
-- Push buttons for additional controls
+- 4 Push buttons for additional controls
 - Battery (3.7V LiPo)
 
 ## 📌 Pin Connections
