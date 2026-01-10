@@ -182,7 +182,7 @@ Battery ADC: Pin 34
 ## 🔋 Battery Monitoring
 
 The system monitors both car and remote battery voltages:
-- Car: 2S LiPo (7.4V nominal, 6.0V cutoff)
+- Car: 2S Li-ion (7.4V nominal, 6.0V cutoff)
 - Remote: 1S LiPo (3.7V nominal, 3.0V cutoff)
 
 Voltage divider calculations are calibrated in code. Adjust `batteryConversionFactor` if readings are inaccurate.
