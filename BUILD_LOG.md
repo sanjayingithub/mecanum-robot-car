@@ -8,7 +8,19 @@ This is a derived and enhanced version of the Mecanum Wheel Robot Car originally
 
 > **Special Thanks:** A huge thank you to DroneBot Workshop for the comprehensive tutorial and detailed explanations that made this project possible!
 
-**Another valuable resource** [IITM Student Outreach Program](https://drive.google.com/drive/folders/1NdA0Y0AUDSWe7Uvx9wfMEFJxht2Ays-z)
+#### **Another valuable resource** [IITM Student Outreach Program](https://drive.google.com/drive/folders/1NdA0Y0AUDSWe7Uvx9wfMEFJxht2Ays-z)
+
+#### **People who help me make this into a reality**
+  - Sajeev
+  - Nisha
+  - [Tejassh](https://github.com/TejazerX)
+  - [Aditya](https://www.linkedin.com/in/aditya-mahto-55274b391/)
+  - Diya ma'am
+  - Jinesh sir
+  - Nandana
+  - [Aditya](https://www.linkedin.com/in/adityaraoiitm/)
+  - [Phil](https://www.printables.com/@PhilM)
+
 ---
 
 ## 🛠️ Build Process & Modifications
