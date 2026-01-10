@@ -4,10 +4,11 @@
 
 This is a derived and enhanced version of the Mecanum Wheel Robot Car originally designed by [DroneBot Workshop](https://dronebotworkshop.com). The original tutorial provided an excellent foundation, and this build includes several modifications and improvements based on real-world testing and usage.
 
-**Original Tutorial:** [DroneBot Workshop - Mecanum Wheel Robot Car](https://dronebotworkshop.com)
+**Original Tutorial:** [DroneBot Workshop - Mecanum Wheel Robot Car](https://dronebotworkshop.com/mecanum/)
 
 > **Special Thanks:** A huge thank you to DroneBot Workshop for the comprehensive tutorial and detailed explanations that made this project possible!
 
+**Another valuable resource** [IITM Student Outreach Program](https://drive.google.com/drive/folders/1NdA0Y0AUDSWe7Uvx9wfMEFJxht2Ays-z)
 ---
 
 ## 🛠️ Build Process & Modifications
@@ -20,7 +21,8 @@ This is a derived and enhanced version of the Mecanum Wheel Robot Car originally
   - Designed frame layout for mecanum wheel configuration
   - Sent design for laser cutting service
   - **Required extensive sanding** of all cut edges to remove char marks and ensure smooth finish
-  - Assembly with M3 standoffs and screws
+  - Assembly with M3 standoffs (I wasn't able to get M3 standoffs so used 10mm screws and nuts) and screws
+- **File:** [I didn't design it, got it from Phil M](https://www.printables.com/model/186945-4wd-buggy-chassis-arduino)
 
 **💡 Recommendation:** Consider purchasing a **pre-made mecanum wheel car kit** instead of sourcing individual components. It's often:
 - **Cheaper** than buying parts separately
@@ -29,30 +31,28 @@ This is a derived and enhanced version of the Mecanum Wheel Robot Car originally
 - Eliminates alignment issues
 
 Popular kit options:
-- 4WD Mecanum Wheel Robot Car Kit (various sellers on AliExpress, Amazon)
+- 4WD Mecanum Wheel Robot Car Kit (various sellers on AliExpress, Amazon, robu, makerbazar)
 - Pre-assembled chassis with motor mounts
 - Often includes motors and wheels
+- Also the fittings, the screws and nuts are quite difficult to source by themself especially locally and they are more expensive too.
 
 #### Custom 3D Printed Parts
 
 ##### 1. Motor-to-Wheel Coupler
 - **Purpose:** Connect DC motors to mecanum wheel hubs
-- **Design Considerations:**
-  - Motor shaft diameter: [Your motor shaft size, e.g., 3mm/4mm/6mm]
-  - Wheel hub interface: [Square/hex/round]
-  - Need for set screw holes
 - **Material:** PLA/PETG
 - **Print Settings:**
   - Layer height: 0.2mm
   - Infill: 50-80% (needs to handle torque)
   - Supports: Required for shaft interface
+  - Print orientation: it in a horizontal manner as i had issues of it snapping off due to torque. 
   
 **Issues Faced:**
 - Initial couplers were too tight - had to sand down motor shaft interface
-- Wheel wobble due to loose fit - added rubber O-rings for grip
-- Set screws backed out during operation - applied threadlocker
+- Wheel wobble due to loose fit - added plumbers tape for grip
+- Kept on breaking so applied M-Seal will have to fix it as the wheels aren't oriented straight.
 
-**Files:** `3D_Models/motor_coupler.stl` *(add your file)*
+**Files:** `3D_Models/motor_coupler.stl`  [I didn't design this,got them for IITM School connect course curriculum](https://drive.google.com/file/d/1HanFR_hteSeybVQaEPewp7Q1eFs2xh4M/view?usp=drivesdk)
 
 ##### 2. Servo Flapper Mechanism
 - **Purpose:** Ball kicking mechanism mounted on servo
@@ -71,28 +71,24 @@ Popular kit options:
 - Initial design too long - reduced servo strain by shortening arm
 - Servo jitter under load - adjusted PWM frequency
 
-**Files:** `3D_Models/flapper_arm.stl` *(add your file)*
+**Files:** `3D_Models/flapper_arm.stl` *This is my first model so there are lots of problems, shall update it in future*
 
-##### 3. Additional Mounts
-- ESP32 controller mount
-- Motor driver mounting brackets
-- Battery holder
-- NeoPixel LED strip holders
+[Body](https://github.com/sanjayingithub/mecanum-robot-car/blob/main/3D_Models/flapper_body.stl)
+[Flapper](https://github.com/sanjayingithub/mecanum-robot-car/blob/main/3D_Models/flapper.stl)
 
 ---
 
 ## ⚡ Electronics Assembly
 
 ### Power Distribution
-- **Main Battery:** 2S LiPo (7.4V, 2200mAh recommended)
+- **Main Battery:** 2S Li-ion (7.4V, 2200mAh recommended)
 - **Issue:** Initial setup had voltage drop under load
   - **Solution:** Added capacitors (470µF) near motor drivers
   - Used thicker gauge wires (18 AWG) for motor power
 
 ### Motor Drivers
 - **Used:** 2x TB6612FNG modules
-- **Mounting:** 3D printed brackets, secured with M3 screws
-- **Heat Management:** Added small heatsinks (initially ran hot during extended use)
+- **Mounting:** designed the entire thing on a protoboard
 
 ### LED Wiring
 - **Critical Issue:** Added 220Ω resistor in NeoPixel power rail thinking it was needed
@@ -111,12 +107,8 @@ Popular kit options:
 
 ## 🎨 Aesthetics & Finishing
 
-### Sanding & Surface Prep
+### Sanding of motor mounts and 3d prints
 - **Time Required:** Approximately 3-4 hours for all laser-cut parts
-- **Process:**
-  1. Coarse sanding (120 grit) to remove burn marks
-  2. Medium sanding (220 grit) for smooth edges
-  3. Fine sanding (400 grit) for professional finish
 - **Tip:** Wet sanding works better for acrylic, prevents melting from friction
 
 ### LED Brightness Tuning
@@ -131,48 +123,69 @@ Popular kit options:
 
 ### Assembly Stages
 
-#### 1. Frame Assembly
-*(Add photo: `photos/01_frame_assembly.jpg`)*
-- Laser-cut panels before sanding
-- Assembled frame with motors mounted
+#### 1. Charger
+![electronics layout](photos/charger.jpeg)
+- Its basically TP4056 and a battery holder
+- 2 of the modules are connected in parallel
+- The modules doesn't have [5.1K 1% resistors in CC lines](https://forum.digikey.com/t/simple-way-to-use-usb-type-c-to-get-5v-at-up-to-3a-15w/7016) so a type A to type C cable will only work as it doesn't support PD
 
 #### 2. Electronics Layout
-*(Add photo: `photos/02_electronics_layout.jpg`)*
+![electronics layout](photos/electronicslayout.jpeg)
 - Motor drivers positioned
 - ESP32 mounted
 - Wiring harness layout
 
-#### 3. LED Installation
-*(Add photo: `photos/03_led_installation.jpg`)*
-- NeoPixel strip placement
-- Wiring connections
+#### 3. LED Neopixel
+![electronics layout](photos/Neopixel.jpeg)
+- NeoPixel ring placement
 
 #### 4. Flapper Mechanism
-*(Add photo: `photos/04_flapper_mechanism.jpg`)*
+![electronics layout](photos/Flappermechanism.jpeg)
 - 3D printed flapper arm
 - Servo mounting
-- Range of motion demonstration
 
 #### 5. Completed Build - Top View
-*(Add photo: `photos/05_completed_top.jpg`)*
+![electronics layout](photos/carfromtop.jpeg)
 - Fully assembled robot
 - All components in place
 
 #### 6. Completed Build - Side View
-*(Add photo: `photos/06_completed_side.jpg`)*
-- Battery placement
+![electronics layout](photos/carsideview.jpeg)
 - Ground clearance
 
 #### 7. Remote Control
-*(Add photo: `photos/07_remote_control.jpg`)*
+![electronics layout](photos/Controller.jpeg)
 - TTGO T-Display with joystick
 - Button layout
 
 #### 8. Action Shots
-*(Add photo: `photos/08_robot_action.jpg`)*
+![electronics layout](photos/carinmotionwithremote.jpeg)
 - Robot in motion
 - LED indicators active
 - Flapper mechanism deployed
+
+#### 9. Display
+![electronics layout](photos/display.jpeg)
+- This is the default mode the other 2 are same as Dronebotworkshop
+- The title and background color changes in differnt modes
+- The colour of motor postion changes with direction and values change with speed
+- Lower corner shows the indication of Speed and flapper modes
+
+#### 10. Wiring
+![electronics layout](photos/wiring.jpeg)
+- This is my first experience with protoboarding
+- The soldering works even though it look like a piece of crap
+- This was taken before adding the voltage divider
+
+#### 11. Resistive divider
+![electronics layout](photos/resistivedividerforcar.jpeg)
+- The first resistor values are being used here as 2 18650 batteries are only used
+- If you decide to go with 3 18650 in series use the second resistor values
+
+#### 12. Pin marking
+![electronics layout](photos/pinmarkingusingnailpolish.jpeg)
+![electronics layout](photos/pinmarkingusingwhitener.jpeg)
+- Used a combination of whitener and nail polish to oriet and connect the wires.
 
 ---
 
@@ -184,25 +197,24 @@ Popular kit options:
 **Problem:** Mecanum wheels not driving straight
 - **Cause:** Uneven motor mounting, wheels not perfectly perpendicular
 - **Solution:** 
-  - Adjusted motor mounts with washers for leveling
-  - Used a level tool during assembly
-  - Software speed calibration in code
+  - The plan is it print the couplers again and tweak the design and motor mounting method.
+  - If that that doesn't work might implement software based solutions.
 
 #### 2. Wheel Wobble
 **Problem:** Visible wobble in wheels during rotation
-- **Cause:** Loose coupler fit, bent motor shafts
+- **Cause:** Loose coupler fit
 - **Solution:**
   - Redesigned couplers with tighter tolerances
-  - Added rubber grommets for vibration dampening
+  - Used plumbers tape for vibration dampening
   - Checked motor shaft straightness before installation
 
-#### 3. Battery Connection
-**Problem:** Intermittent power loss during sharp movements
-- **Cause:** Poor contact in battery connector
+#### 3. Protection
+**Problem:** Over current draw
+- **Cause:** Short circuit
 - **Solution:**
-  - Upgraded to XT60 connectors
-  - Added stress relief for battery wires
-  - Secured battery with velcro straps
+  - RUSBF250 16V 2.5A Tyco Raychem PPTC resettable fuse
+  - Added series to the battery
+  - Cuts off it too much current is drawn
 
 ### Software Issues
 
@@ -240,7 +252,6 @@ Popular kit options:
 - **Cause:** Analog joystick calibration, electrical noise
 - **Solution:**
   - Implemented deadzone (±200 ADC counts) in `convertJoystickValues()`
-  - Added capacitors to joystick power lines
   - Software filtering for stability
 
 ---
@@ -263,15 +274,16 @@ Popular kit options:
 
 #### 3. **Electronics Assembly**
    - **Test components individually** before final assembly
-   - Use JST connectors for easy disconnect/reconnect
-   - Label all wires (seriously, do this!)
+   - Use JST connectors for easy disconnect/reconnect or go cheap with berg at your own risk
+   - Label all wires (seriously, do this!) nail polish could also work
    - Take photos during assembly for reference
 
 #### 4. **Power Management**
-   - Use proper capacity battery (2200mAh minimum)
+   - Use proper capacity battery (2200mAh minimum) 
    - Add voltage monitoring early in development
    - Include power switch in accessible location
    - Consider adding a fuse for protection
+   - Don't buy those cheap knock off batteries use name brand once
 
 #### 5. **LED Brightness**
    - Start with low brightness (20-30%) and increase if needed
@@ -283,58 +295,6 @@ Popular kit options:
    - Comment your code thoroughly
    - Test each feature independently
    - Keep a changelog of modifications
-
----
-
-## 📊 Parts List & Cost Breakdown
-
-### Electronics
-| Component | Quantity | Unit Price | Total | Source |
-|-----------|----------|------------|-------|--------|
-| ESP32 DevKitC | 1 | $8 | $8 | AliExpress |
-| TTGO T-Display | 1 | $12 | $12 | AliExpress |
-| TB6612FNG Driver | 2 | $3 | $6 | AliExpress |
-| DC Motors (with encoders) | 4 | $5 | $20 | - |
-| Mecanum Wheels | 4 | $8 | $32 | - |
-| Servo Motor | 1 | $4 | $4 | - |
-| WS2812B LED Strip | 1m | $5 | $5 | - |
-| Joystick Module | 1 | $2 | $2 | - |
-| 2S LiPo Battery | 1 | $15 | $15 | - |
-| XT60 Connectors | 2 | $1 | $2 | - |
-| Misc (wires, connectors) | - | - | $10 | - |
-| **Electronics Total** | | | **~$116** | |
-
-### Mechanical
-| Component | Quantity | Unit Price | Total | Source |
-|-----------|----------|------------|-------|--------|
-| Laser-cut Frame | 1 set | $20 | $20 | Local service |
-| M3 Screws/Nuts | 1 pack | $5 | $5 | - |
-| Standoffs | 20 | $0.25 | $5 | - |
-| 3D Printing Filament | ~200g | - | $5 | - |
-| **Mechanical Total** | | | **~$35** | |
-
-### **Grand Total: ~$151**
-
-**Alternative: Complete Kit** = $80-120 (saves ~$30-70 and significant time)
-
----
-
-## ⏱️ Time Investment
-
-| Stage | Time Required |
-|-------|---------------|
-| Research & Planning | 5 hours |
-| Part Ordering & Waiting | 2-3 weeks |
-| Frame Prep (sanding, etc.) | 4 hours |
-| 3D Printing | 8 hours (print time) |
-| Electronics Assembly | 6 hours |
-| Wiring | 4 hours |
-| Initial Code Development | 10 hours |
-| Testing & Debugging | 12 hours |
-| Feature Additions | 8 hours |
-| **Total Active Time** | **~57 hours** |
-
-*Note: Using a kit could reduce active time by ~15-20 hours*
 
 ---
 
@@ -351,8 +311,6 @@ Popular kit options:
 - [ ] Improve battery life optimization
 
 ### Ideas Under Consideration
-- RGB underglow lighting
-- Sound effects speaker
 - Additional servo for grabber arm
 - Encoder-based odometry
 - Custom PCB to consolidate wiring
