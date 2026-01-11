@@ -2,10 +2,8 @@
 
 A complete remote-controlled mecanum wheel robot car system using ESP32 microcontrollers with ESP-NOW wireless communication protocol.
 
-![electronics layout](photos/carinmotionwithremote.jpeg)
-
-[Watch the video on YouTube](https://youtu.be/mn05_ho8lYk)
-<iframe width="560" height="315" src="https://www.youtube.com/embed/mn05_ho8lYk?si=VVBkumBtgzpaMmMb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![Youtube Video](photos/carinmotionwithremote.jpeg)](https://www.youtube.com/watch?v=mn05_ho8lYk)
+Click on image for video
 
 ## 📋 Overview
 
