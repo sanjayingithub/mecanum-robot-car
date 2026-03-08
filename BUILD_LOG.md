@@ -8,6 +8,19 @@ This is a derived and enhanced version of the Mecanum Wheel Robot Car originally
 
 > **Special Thanks:** A huge thank you to DroneBot Workshop for the comprehensive tutorial and detailed explanations that made this project possible!
 
+#### **Another valuable resource** [IITM Student Outreach Program](https://drive.google.com/drive/folders/1NdA0Y0AUDSWe7Uvx9wfMEFJxht2Ays-z)
+
+#### **People who help me make this into a reality**
+  - Sajeev
+  - Nisha
+  - [Tejassh](https://github.com/TejazerX)
+  - [Aditya](https://www.linkedin.com/in/aditya-mahto-55274b391/)
+  - Diya ma'am
+  - Jinesh sir
+  - Nandana
+  - [Aditya](https://www.linkedin.com/in/adityaraoiitm/)
+  - [Phil](https://www.printables.com/@PhilM)
+
 ---
 
 ## 🛠️ Build Process & Modifications
@@ -19,8 +32,9 @@ This is a derived and enhanced version of the Mecanum Wheel Robot Car originally
 - **Process:** 
   - Designed frame layout for mecanum wheel configuration
   - Sent design for laser cutting service
-  - **Required extensive sanding** as the model i used has some problem with tolerences and the motor mounting pieces dont fit. 
-  - Assembly with M3 standoffs and screws
+  - **Required extensive sanding** of all cut edges to remove char marks and ensure smooth finish
+  - Assembly with M3 standoffs (I wasn't able to get M3 standoffs so used 10mm screws and nuts) and screws
+- **File:** [I didn't design it, got it from Phil M](https://www.printables.com/model/186945-4wd-buggy-chassis-arduino)
 
 **💡 Recommendation:** Consider purchasing a **pre-made mecanum wheel car kit** instead of sourcing individual components. It's often:
 - **Cheaper** than buying parts separately
@@ -29,29 +43,28 @@ This is a derived and enhanced version of the Mecanum Wheel Robot Car originally
 - Eliminates alignment issues
 
 Popular kit options:
-- 4WD Mecanum Wheel Robot Car Kit (various sellers on AliExpress, Amazon)
+- 4WD Mecanum Wheel Robot Car Kit (various sellers on AliExpress, Amazon, robu, makerbazar)
 - Pre-assembled chassis with motor mounts
 - Often includes motors and wheels
+- Also the fittings, the screws and nuts are quite difficult to source by themself especially locally and they are more expensive too.
 
 #### Custom 3D Printed Parts
 
 ##### 1. Motor-to-Wheel Coupler
 - **Purpose:** Connect DC motors to mecanum wheel hubs
-- **Design Considerations:**
-  - The output from BO motors dont match the Maccanum wheels hole. So 3D printed a coupler.
 - **Material:** PLA/PETG
 - **Print Settings:**
   - Layer height: 0.2mm
   - Infill: 50-80% (needs to handle torque)
   - Supports: Required for shaft interface
-  - Orient the part in a sleeping postion to improve strength and prevent breaking due to torque.
+  - Print orientation: it in a horizontal manner as i had issues of it snapping off due to torque. 
   
 **Issues Faced:**
 - Initial couplers were too tight - had to sand down motor shaft interface
-- Wheel wobble due to loose fit - added rubber plumbers tape to compensate
-- They were breaking so used adaldite to sequite them to motor.
+- Wheel wobble due to loose fit - added plumbers tape for grip
+- Kept on breaking so applied M-Seal will have to fix it as the wheels aren't oriented straight.
 
-**Files:** `3D_Models/motor_coupler.stl` *(add your file)*
+**Files:** `3D_Models/motor_coupler.stl`  [I didn't design this,got them for IITM School connect course curriculum](https://drive.google.com/file/d/1HanFR_hteSeybVQaEPewp7Q1eFs2xh4M/view?usp=drivesdk)
 
 ##### 2. Servo Flapper Mechanism
 - **Purpose:** Ball kicking mechanism mounted on servo
@@ -66,11 +79,14 @@ Popular kit options:
   - Print orientation: Flat to ensure layer strength perpendicular to impact
 
 **Issues Faced:**
-- PLA version cracked after repeated impacts - so better switched to PETG
+- PLA version cracked after repeated impacts - switched to PETG
 - Initial design too long - reduced servo strain by shortening arm
 - Servo jitter under load - adjusted PWM frequency
 
-**Files:** `3D_Models/flapper_arm.stl` *(add your file)*
+**Files:** `3D_Models/flapper_arm.stl` *This is my first model so there are lots of problems, shall update it in future*
+
+[Body](https://github.com/sanjayingithub/mecanum-robot-car/blob/main/3D_Models/flapper_body.stl)
+[Flapper](https://github.com/sanjayingithub/mecanum-robot-car/blob/main/3D_Models/flapper.stl)
 
 ---
 
@@ -84,27 +100,28 @@ Popular kit options:
 
 ### Motor Drivers
 - **Used:** 2x TB6612FNG modules
-- You could use L298N easier wiring. You dont have to solder and comes with voltage redulator but lacks in efficeintcy.
+- **Mounting:** designed the entire thing on a protoboard
 
 ### LED Wiring
 - **Critical Issue:** Added 220Ω resistor in NeoPixel power rail thinking it was needed
   - **Problem:** Caused voltage drop affecting blue channel brightness
   - **Solution:** Removed resistor - NeoPixels work best with direct 5V connection
   - **Lesson:** Always check component datasheets before adding "protective" components
-  - Then here i am using a NeoPixel ring with 8 leds as it was the cheapest option availiable. 
 
 ### Servo Integration
 - **Flapper Servo:** Connected to Pin 18
-- **Power:** Direct from battery through buck module.
+- **Power:** Direct from battery through servo connector
 - **Issue:** Servo buzzing at idle
   - **Solution:** Adjusted duty cycle calculation for 0° position
   - Used 16-bit LEDC resolution for smoother control
-  - Add caps next to the servo for smoothening the current requirement.
-- The flapper wasn't working when I tried using ESPServo libary. There were conflicts assigning the 4 motors and servo to the first 0-7 channels. And the pwm frequecy was set for the motors and servo didn't work. Even after manually forcing servo into second pwn set. Finally made it to work by ditching the libary and writing the servo control manually.
 
 ---
 
 ## 🎨 Aesthetics & Finishing
+
+### Sanding of motor mounts and 3d prints
+- **Time Required:** Approximately 3-4 hours for all laser-cut parts
+- **Tip:** Wet sanding works better for acrylic, prevents melting from friction
 
 ### LED Brightness Tuning
 - **Initial:** Full brightness (255 RGB values)
@@ -112,61 +129,75 @@ Popular kit options:
 - **Solution:** Reduced to 20% brightness (51 RGB values)
 - **Result:** Easier on eyes while maintaining visibility
 
-### REMOTE
-- I have attached the Liligo TDisplay to a 170 whole breadboard which is attached to the 840 pin breadboard using double sided tape. 
-- The battery is atttached and stuck to the bigger breadboard using double sided tape. 
-- Used single stand wire for connecting the switches and power lines. 
-- **The Vcc and Ground pin of joystich is flipped intentionally** As otherwise the controls won't work properly.
-- Similarl to battery the joystick is attached using formy double sided tape. 
-
 ---
 
 ## 📸 Build Photos
 
 ### Assembly Stages
 
-#### 1. Frame Assembly
-*(Add photo: `photos/01_frame_assembly.jpg`)*
-- Laser-cut panels before sanding
-- Assembled frame with motors mounted
+#### 1. Charger
+![electronics layout](photos/charger.jpeg)
+- Its basically TP4056 and a battery holder
+- 2 of the modules are connected in parallel
+- The modules doesn't have [5.1K 1% resistors in CC lines](https://forum.digikey.com/t/simple-way-to-use-usb-type-c-to-get-5v-at-up-to-3a-15w/7016) so a type A to type C cable will only work as it doesn't support PD
 
 #### 2. Electronics Layout
-*(Add photo: `photos/02_electronics_layout.jpg`)*
+![electronics layout](photos/electronicslayout.jpeg)
 - Motor drivers positioned
 - ESP32 mounted
 - Wiring harness layout
 
-#### 3. LED Installation
-*(Add photo: `photos/03_led_installation.jpg`)*
-- NeoPixel strip placement
-- Wiring connections
+#### 3. LED Neopixel
+![electronics layout](photos/Neopixel.jpeg)
+- NeoPixel ring placement
 
 #### 4. Flapper Mechanism
-*(Add photo: `photos/04_flapper_mechanism.jpg`)*
+![electronics layout](photos/Flappermechanism.jpeg)
 - 3D printed flapper arm
 - Servo mounting
-- Range of motion demonstration
 
 #### 5. Completed Build - Top View
-*(Add photo: `photos/05_completed_top.jpg`)*
+![electronics layout](photos/carfromtop.jpeg)
 - Fully assembled robot
 - All components in place
 
 #### 6. Completed Build - Side View
-*(Add photo: `photos/06_completed_side.jpg`)*
-- Battery placement
+![electronics layout](photos/carsideview.jpeg)
 - Ground clearance
 
 #### 7. Remote Control
-*(Add photo: `photos/07_remote_control.jpg`)*
+![electronics layout](photos/Controller.jpeg)
 - TTGO T-Display with joystick
 - Button layout
 
 #### 8. Action Shots
-*(Add photo: `photos/08_robot_action.jpg`)*
+![electronics layout](photos/carinmotionwithremote.jpeg)
 - Robot in motion
 - LED indicators active
 - Flapper mechanism deployed
+
+#### 9. Display
+![electronics layout](photos/display.jpeg)
+- This is the default mode the other 2 are same as Dronebotworkshop
+- The title and background color changes in differnt modes
+- The colour of motor postion changes with direction and values change with speed
+- Lower corner shows the indication of Speed and flapper modes
+
+#### 10. Wiring
+![electronics layout](photos/wiring.jpeg)
+- This is my first experience with protoboarding
+- The soldering works even though it look like a piece of crap
+- This was taken before adding the voltage divider
+
+#### 11. Resistive divider
+![electronics layout](photos/resistivedividerforcar.jpeg)
+- The first resistor values are being used here as 2 18650 batteries are only used
+- If you decide to go with 3 18650 in series use the second resistor values
+
+#### 12. Pin marking
+![electronics layout](photos/pinmarkingusingnailpolish.jpeg)
+![electronics layout](photos/pinmarkingusingwhitener.jpeg)
+- Used a combination of whitener and nail polish to oriet and connect the wires.
 
 ---
 
@@ -178,20 +209,28 @@ Popular kit options:
 **Problem:** Mecanum wheels not driving straight
 - **Cause:** Uneven motor mounting, wheels not perfectly perpendicular
 - **Solution:** 
-  - Adjusted motor mounts with washers for leveling
-  - Used a level tool during assembly
-  - Software speed calibration in code
+  - The plan is it print the couplers again and tweak the design and motor mounting method.
+  - If that that doesn't work might implement software based solutions.
 
 #### 2. Wheel Wobble
 **Problem:** Visible wobble in wheels during rotation
-- **Cause:** Loose coupler fit, bent motor shafts
+- **Cause:** Loose coupler fit
 - **Solution:**
   - Redesigned couplers with tighter tolerances
+  - Used plumbers tape for vibration dampening
   - Checked motor shaft straightness before installation
+
+#### 3. Protection
+**Problem:** Over current draw
+- **Cause:** Short circuit
+- **Solution:**
+  - RUSBF250 16V 2.5A Tyco Raychem PPTC resettable fuse
+  - Added series to the battery
+  - Cuts off it too much current is drawn
 
 ### Software Issues
 
-#### 3. LED Flickering (Flapper Indicator)
+#### 4. LED Flickering (Flapper Indicator)
 **Problem:** LED status not staying on during flapper activation
 - **Cause:** Status update function overwriting LED every loop
 - **Solution:** 
@@ -199,12 +238,12 @@ Popular kit options:
   - Continuous LED state refresh in `flapper()` function
   - Separate LED control during kick/cooldown states
 
-#### 4. Color Synchronization
+#### 5. Color Synchronization
 **Problem:** Car LED colors didn't match remote display
 - **Cause:** Different mode-to-color mappings between devices
 - **Solution:** Standardized color scheme across both programs
 
-#### 5. Blue Channel Dimness
+#### 6. Blue Channel Dimness
 **Problem:** Blue LEDs appeared significantly dimmer than red/green
 - **Initially thought:** LED characteristic issue
 - **Actual cause:** 220Ω resistor in power rail causing voltage drop
@@ -212,7 +251,7 @@ Popular kit options:
 
 ### Communication Issues
 
-#### 6. ESP-NOW Connection Drops
+#### 7. ESP-NOW Connection Drops
 **Problem:** Intermittent disconnections during operation
 - **Cause:** WiFi interference, power supply instability
 - **Solution:**
@@ -220,12 +259,11 @@ Popular kit options:
   - Added watchdog timer for system recovery
   - Implemented proper timeout handling (500ms)
 
-#### 7. Joystick Drift
+#### 8. Joystick Drift
 **Problem:** Car slowly drifting even with joystick centered
 - **Cause:** Analog joystick calibration, electrical noise
 - **Solution:**
   - Implemented deadzone (±200 ADC counts) in `convertJoystickValues()`
-  - Added capacitors to joystick power lines
   - Software filtering for stability
 
 ---
@@ -248,16 +286,16 @@ Popular kit options:
 
 #### 3. **Electronics Assembly**
    - **Test components individually** before final assembly
-   - Use JST connectors for easy disconnect/reconnect
-   - If not available use berge male and female connectors. But keep current limit inconsiderations.
-   - Label all wires (seriously, do this! saves lot of time debugging. I used nail polish to indicate diffrent motor and orientation)
+   - Use JST connectors for easy disconnect/reconnect or go cheap with berg at your own risk
+   - Label all wires (seriously, do this!) nail polish could also work
    - Take photos during assembly for reference
 
 #### 4. **Power Management**
-   - Use proper capacity battery (2200mAh minimum) from good brand it does make a difference.
+   - Use proper capacity battery (2200mAh minimum) 
    - Add voltage monitoring early in development
    - Include power switch in accessible location
-   - Consider adding a resettable fuse for protection. Saves money down the line.
+   - Consider adding a fuse for protection
+   - Don't buy those cheap knock off batteries use name brand once
 
 #### 5. **LED Brightness**
    - Start with low brightness (20-30%) and increase if needed
@@ -285,7 +323,6 @@ Popular kit options:
 - [ ] Improve battery life optimization
 
 ### Ideas Under Consideration
-- RGB underglow lighting
 - Additional servo for grabber arm
 - Encoder-based odometry
 - Custom PCB to consolidate wiring
